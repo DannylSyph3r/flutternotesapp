@@ -13,8 +13,7 @@ class NotesService {
   NotesService._sharedInstance();
   factory NotesService() => _shared;
 
-  final _notesStreamController =
-      StreamController<List<DatabaseNotes>>.broadcast();
+  final _notesStreamController = StreamController<List<DatabaseNotes>>.broadcast();
 
   Stream<List<DatabaseNotes>> get allNotes => _notesStreamController.stream;
 
@@ -229,7 +228,6 @@ class NotesService {
       await _cacheNotes();
     } on MissingPlatformDirectoryException {
       throw UnableToGetDocumentsDirectoryException();
-
     }
   }
 }
