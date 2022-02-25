@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:omegalogin/services/crud/notes_services.dart';
-import '../constants/routes.dart';
-import '../enums/menu_action.dart';
-import '../services/auth/auth_service.dart';
+import '../../constants/routes.dart';
+import '../../enums/menu_action.dart';
+import '../../services/auth/auth_service.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({Key? key}) : super(key: key);
@@ -31,8 +31,13 @@ class _NotesViewState extends State<NotesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Main UI'),
+        appBar: AppBar(title: const Text('Your Notes'),
           actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(newNoteRoute);
+                },
+                icon: const Icon(Icons.add)),
             PopupMenuButton(onSelected: (value) async {
               switch (value){
                 case MenuAction.logout:
