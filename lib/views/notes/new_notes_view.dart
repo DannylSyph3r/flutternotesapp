@@ -29,7 +29,7 @@ class _NewNoteViewState extends State<NewNoteView> {
     }
     final text =_textController.text;
     await _notesService.updateNote(
-        notes: note,
+        note: note,
         text: text
     );
   }
@@ -62,7 +62,7 @@ class _NewNoteViewState extends State<NewNoteView> {
     final text = _textController.text;
     if (note != null && text.isNotEmpty) {
       await _notesService.updateNote(
-          notes: note,
+          note: note,
           text: text,
       );
     }
@@ -85,7 +85,7 @@ class _NewNoteViewState extends State<NewNoteView> {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              _note = snapshot.data as DatabaseNotes?;
+              _note = snapshot.data as DatabaseNotes;
               _setupTextControllerListener();
               return TextField(
                 controller: _textController,

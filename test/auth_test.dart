@@ -30,22 +30,22 @@ void main(){
     timeout: const Timeout(Duration(seconds: 2))
     );
     
-    test('Create user should delegates to login ', () async {
+    test('Create user should delegates to login function', () async {
       final badEmailUser = provider.createUser(
         email: 'sypher@sleth.com',
-        password: 'passcode',
+        password: 'anypassword',
       );
-      expect(badEmailUser, throwsA(const TypeMatcher<NotInitializedException>()));
+      expect(badEmailUser, throwsA(const TypeMatcher<UserNotFoundAuthException>()));
 
       final badPasswordUser = provider.createUser(
           email: 'someone@sleth.com',
-          password: 'sypher123',
+          password: 'sypher',
       );
       expect(badPasswordUser, throwsA(const TypeMatcher<WrongPasswordAuthException>()));
 
       final user = await provider.createUser(
-        email: 'sypher',
-        password: 'sleth',
+        email: 'foo',
+        password: 'bar',
       );
       expect(provider.currentUser, user);
       expect(user.isEmailVerified, false);
@@ -113,8 +113,8 @@ class MockAuthProvider implements AuthProvider {
   }) {
     if (!isInitialized) throw NotInitializedException();
     if (email == 'sypher@sleth.com') throw UserNotFoundAuthException();
-    if (password == 'sypher123') throw WrongPasswordAuthException();
-    const user =AuthUser(isEmailVerified: false, email: 'sypher@sleth.com',);
+    if (password == 'sypher') throw WrongPasswordAuthException();
+    const user = AuthUser(isEmailVerified: false, email: 'sypher@sleth.com');
     _user = user;
     return Future.value(user);
   }
