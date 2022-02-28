@@ -18,7 +18,7 @@ class _NotesViewState extends State<NotesView> {
   String get userEmail => AuthService.firebase().currentUser!.email!;
 
   @override
-  void initState() {
+void initState() {
     _notesService = NotesService();
     super.initState();
   }
@@ -30,7 +30,7 @@ class _NotesViewState extends State<NotesView> {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(newNoteRoute);
+                  Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
                 },
                 icon: const Icon(Icons.add)),
             PopupMenuButton(onSelected: (value) async {
@@ -71,6 +71,12 @@ class _NotesViewState extends State<NotesView> {
                               onDeleteNote: (note) async {
                                 await _notesService.deleteNote(id: note.id);
                               },
+                            onTap: (note) {
+                              Navigator.of(context).pushNamed(
+                                  createOrUpdateNoteRoute,
+                                arguments: note,
+                              );
+                            },
                           );
                         } else {
                           return const CircularProgressIndicator();
