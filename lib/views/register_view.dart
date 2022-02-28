@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:omegalogin/constants/routes.dart';
 import 'package:omegalogin/services/auth/auth_service.dart';
-import 'package:omegalogin/utilities/show_error_dialog.dart';
 import '../services/auth/auth_exceptions.dart';
+import '../utilities/dialogs/error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
