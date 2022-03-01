@@ -7,6 +7,7 @@ import 'package:omegalogin/views/notes/notes_view.dart';
 import 'package:omegalogin/views/register_view.dart';
 import 'package:omegalogin/views/verify_email_view.dart';
 
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
