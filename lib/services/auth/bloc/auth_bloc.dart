@@ -6,6 +6,46 @@ import 'package:omegalogin/services/auth_provider.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(AuthProvider provider)
       : super( const AuthStateUninitialized(isLoading: true)) {
+    //Register a new user
+    on<AuthEventShouldRegister>((event, emit) {
+      emit(const AuthStateRegistering(
+          exception: null,
+          isLoading: false,
+      ));
+    });
+    // Forgot password
+    on<AuthEventForgotPassword>((event, emit) async {
+      emit(const AuthStateForgotPassword(
+          exception: null,
+          hasSentEmail: false,
+          isLoading: false,
+      ));
+      final email = event.email;
+      if (email == null) {
+        return; //User just wants to see forgot password screen
+      }
+      //In case user actually wants to use forgot password link
+      emit(const AuthStateForgotPassword(
+        exception: null,
+        hasSentEmail: false,
+        isLoading: true,
+      ));
+      bool didSendEmail;
+      Exception? exception;
+      try{
+        await provider.sendPasswordReset(toEmail: email);
+        didSendEmail = true;
+        exception = null;
+      } on Exception catch (e) {
+        didSendEmail = false;
+        exception = e;
+      }
+      emit(AuthStateForgotPassword(
+        exception: exception,
+        hasSentEmail: didSendEmail,
+        isLoading: false,
+      ));
+    });
     //Send email verification
     on<AuthEventSendEmailVerification>((event, emit) async {
       await provider.sendEmailVerification();
