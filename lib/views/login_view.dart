@@ -50,7 +50,7 @@ class _LoginViewState extends State<LoginView> {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(children: [
-            const Text("Please login into your account to view your notes!"),
+            const Text("Welcome Back!"),
             TextField(
               enableSuggestions: false,
               autocorrect: false,
