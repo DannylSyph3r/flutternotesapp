@@ -21,6 +21,7 @@ void main() {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.orange,
+        fontFamily: 'Montserrat',
       ),
       home: BlocProvider<AuthBloc>(
           create: (context) => AuthBloc(FirebaseAuthProvider()),
@@ -29,6 +30,7 @@ void main() {
       routes: {
         createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
       },
+      debugShowCheckedModeBanner: false,
     ),
   );
 }
